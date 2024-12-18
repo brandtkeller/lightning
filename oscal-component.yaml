@@ -1,35 +1,4 @@
 component-definition:
-    back-matter:
-        resources:
-            - description: |-
-                domain:
-                  type: kubernetes
-                  kubernetes-spec:
-                    resources:
-                    - name: podsvt
-                      resource-rule:
-                        group:
-                        version: v1
-                        resource: pods
-                        namespaces: [validation-test]
-                provider:
-                  type: opa
-                  opa-spec:
-                    rego: |
-                      package validate
-
-                      import future.keywords.every
-
-                      validate {
-                        count(input.podsvt) > 0
-                        every pod in input.podsvt {
-                          podLabel := pod.metadata.labels.foo
-                          podLabel == "bar"
-                        }
-                      }
-              rlinks:
-                - href: lula.dev
-              uuid: a7377430-2328-4dc4-a9e2-b3f31dc1dff9
     components:
         - control-implementations:
             - description: Validate generic security requirements
@@ -37,21 +6,43 @@ component-definition:
                 - control-id: ID-1
                   description: This control validates that the demo-pod pod in the validation-test namespace contains the required pod label foo=bar in order to establish compliance.
                   links:
-                    - href: '#a7377430-2328-4dc4-a9e2-b3f31dc1dff9'
+                    - href: file://./validations/kube-validation.yaml
                       rel: lula
-                  uuid: 42C2FFDC-5F05-44DF-A67F-EEC8660AEFFD
+                  uuid: 013dbb6d-0b58-4271-8bdc-73e3a06d81af
+                - control-id: ID-2
+                  description: This control validates that the configuration file contains the correct information for compliance.
+                  links:
+                    - href: file://./validations/file-validation.yaml
+                      rel: lula
+                  uuid: 68a372d9-dfec-4e27-8330-1b15a07ef9b1
+                - control-id: ID-3
+                  description: This control validates that the returns the correct information for compliance.
+                  links:
+                    - href: file://./validations/api-validation.yaml
+                      rel: lula
+                  uuid: ad04c847-1e40-4fd0-a2dd-9c3f9853d1d3
+                - control-id: ID-4
+                  description: This control validates all of the previous checks for a single control.
+                  links:
+                    - href: file://./validations/kube-validation.yaml
+                      rel: lula
+                    - href: file://./validations/file-validation.yaml
+                      rel: lula
+                    - href: file://./validations/api-validation.yaml
+                      rel: lula
+                  uuid: db541247-288e-440a-b16a-fbf9831c7ab9
               source: https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json
-              uuid: A584FEDC-8CEA-4B0C-9F07-85C2C4AE751A
+              uuid: a3039927-839c-5745-ac4e-a9993bcd60ed
           description: |
             Lula - the Compliance Validator
           purpose: Validate compliance controls
           responsible-roles:
             - party-uuids:
-                - C18F4A9F-A402-415B-8D13-B51739D689FF
+                - 0adfd2ea-7f84-4f8d-b8b4-194b9bd231cc
               role-id: provider
           title: lula
           type: software
-          uuid: A9D5204C-7E5B-4C43-BD49-34DF759B9F04
+          uuid: 0811ee42-5563-488c-ab91-a01d28f3f4f9
     metadata:
         last-modified: 2024-12-17T23:23:03.681790241Z
         oscal-version: 1.1.3
@@ -61,7 +52,7 @@ component-definition:
                   rel: website
               name: Lula Development
               type: organization
-              uuid: C18F4A9F-A402-415B-8D13-B51739D689FF
+              uuid: 0adfd2ea-7f84-4f8d-b8b4-194b9bd231cc
         title: Lula Demo
         version: "20220913"
-    uuid: E6A291A4-2BC8-43A0-B4B2-FD67CAAE1F8F
+    uuid: 4db513bd-73ee-4d07-91f5-ae4323a75493

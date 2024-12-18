@@ -3,7 +3,7 @@ domain:
   file-spec:
     filepaths:
     - Name: config
-      path: ../resources/config.json
+      path: ./resources/config.json
 provider:
   type: opa
   opa-spec:
