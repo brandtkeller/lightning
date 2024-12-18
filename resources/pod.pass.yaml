@@ -1,0 +1,13 @@
+#kics-scan ignore
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+  namespace: validation-test
+  labels: 
+    foo: bar
+spec:
+  containers:
+    - image: nginx
+      name: pods-simple-container
